@@ -318,18 +318,29 @@
         const musicToggle = document.getElementById('music-toggle');
         
         let holdTimer; let progress = 0; let isUnlocked = false;
+let audioUnlocked = false; // เพิ่มตัวแปรเช็กสถานะเสียง
 
-        function startUnlock(e) {
-            if(isUnlocked) return;
-            e.stopPropagation();
-            unlockBtn.classList.add('holding');
-            
-            holdTimer = setInterval(() => {
-                progress += 2.5; 
-                progressRing.style.background = `conic-gradient(#fb6f92 ${progress}%, transparent ${progress}%)`;
-                if (progress >= 100) { clearInterval(holdTimer); unlockSuccess(); }
-            }, 30);
-        }
+function startUnlock(e) {
+    if(isUnlocked) return;
+    e.stopPropagation();
+
+    // ทริคหลอกมือถือ: พอนิ้วแตะปุ๊บ สั่งเล่นเพลงแล้วหยุดทันทีแบบเงียบๆ เพื่อปลดล๊อกสิทธิ์
+    if (!audioUnlocked) {
+        bgm.play().then(() => {
+            bgm.pause();
+            bgm.currentTime = 0;
+        }).catch(err => {});
+        audioUnlocked = true;
+    }
+
+    unlockBtn.classList.add('holding');
+    
+    holdTimer = setInterval(() => {
+        progress += 2.5; 
+        progressRing.style.background = `conic-gradient(#fb6f92 ${progress}%, transparent ${progress}%)`;
+        if (progress >= 100) { clearInterval(holdTimer); unlockSuccess(); }
+    }, 30);
+}
 
         function stopUnlock() {
             if(isUnlocked) return;
