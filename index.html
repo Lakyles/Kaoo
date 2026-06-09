@@ -238,7 +238,7 @@
         </section>
 
         <section class="timeline-container">
-            <h2 class="font-hand text-3xl text-center text-cute-600 mb-12 gs-reveal font-bold">Memory Gallery 📸</h2>
+            <h2 class="font-hand text-3xl text-center text-cute-600 mb-12 gs-reveal font-bold">To kaoo</h2>
             <p class="text-center text-cute-500 mb-8 text-sm pulse-text">(แตะที่รูปดูสิิ)</p>
             
             <div class="flip-card gs-card" onclick="event.stopPropagation();">
@@ -267,6 +267,19 @@
                     <div class="flip-card-back">
                         <h3 class="text-2xl mb-4">ชอบข้าวมั้กๆ</h3>
                         <p class="text-lg">เวลาเห็นข้าวยิ้ม ข้าวหัวเราะ มันทำให้โลกสดใสขึ้นเยอะเลย ยิ้มเย้อๆนะ ข้าวเหมาะสมกับรอยยิ้มที่สุดแล้ว ถ้าวันไหนยิ้มไม่ออกหรือเหนื่อยมากๆ ท้อมากๆๆๆ ให้มองมาที่ลีโอนะจะกอดข้าวเอาไว้เอง โอเคนะ</p>
+                    </div>
+                </div>
+            </div>
+			
+            <div class="flip-card gs-card" onclick="event.stopPropagation();">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="3.jpg" alt="Memory 2">
+                        <p class="font-hand text-xl mt-4 text-cute-600 font-bold">เด็กดื้อ</p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h3 class="text-2xl mb-4">ไอดื้อป่วย</h3>
+                        <p class="text-lg">ข้าวป่วยง่ายป่วยบ่อย ข้าวต้องดูแลตัวเองดีๆนะ รักตัวเองให้มากๆหน่อย คนเป็นห่วงจะขาดใจตายเข้าใจมั้ย ลีโออยากไปดูแลข้าวเองทันทีเสมอเลยนะเวลารู้ว่าข้าวป่้วย เป็นห่วงนะอย่าดื้อมาก ต้องตื่นมากินข้าวกินยาด้วยนะ</p>
                     </div>
                 </div>
             </div>
@@ -318,29 +331,18 @@
         const musicToggle = document.getElementById('music-toggle');
         
         let holdTimer; let progress = 0; let isUnlocked = false;
-let audioUnlocked = false; // เพิ่มตัวแปรเช็กสถานะเสียง
 
-function startUnlock(e) {
-    if(isUnlocked) return;
-    e.stopPropagation();
-
-    // ทริคหลอกมือถือ: พอนิ้วแตะปุ๊บ สั่งเล่นเพลงแล้วหยุดทันทีแบบเงียบๆ เพื่อปลดล๊อกสิทธิ์
-    if (!audioUnlocked) {
-        bgm.play().then(() => {
-            bgm.pause();
-            bgm.currentTime = 0;
-        }).catch(err => {});
-        audioUnlocked = true;
-    }
-
-    unlockBtn.classList.add('holding');
-    
-    holdTimer = setInterval(() => {
-        progress += 2.5; 
-        progressRing.style.background = `conic-gradient(#fb6f92 ${progress}%, transparent ${progress}%)`;
-        if (progress >= 100) { clearInterval(holdTimer); unlockSuccess(); }
-    }, 30);
-}
+        function startUnlock(e) {
+            if(isUnlocked) return;
+            e.stopPropagation();
+            unlockBtn.classList.add('holding');
+            
+            holdTimer = setInterval(() => {
+                progress += 2.5; 
+                progressRing.style.background = `conic-gradient(#fb6f92 ${progress}%, transparent ${progress}%)`;
+                if (progress >= 100) { clearInterval(holdTimer); unlockSuccess(); }
+            }, 30);
+        }
 
         function stopUnlock() {
             if(isUnlocked) return;
